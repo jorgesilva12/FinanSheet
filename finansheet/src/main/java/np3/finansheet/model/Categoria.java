@@ -1,7 +1,16 @@
 package np3.finansheet.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@Data//Cria os Get and Seters
+@NoArgsConstructor //Cria contrutor vazio
+@AllArgsConstructor //Cria contrutor com todos atributos
 @Entity
 @Table(name = "np3_categoria")
 public class Categoria {
@@ -9,25 +18,13 @@ public class Categoria {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    private String descricao;
+    @Column(nullable = false)
+    private String categoria;
 
-    public Categoria(){
+    @OneToMany(mappedBy = "categoria", fetch =  FetchType.LAZY)
+    private List<Lance> lances = new ArrayList<>();
 
-    }
+    @OneToMany(mappedBy = "categoria", fetch =  FetchType.LAZY)
+    private List<SubCategoria> subCategorias = new ArrayList<>();
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 }

@@ -1,25 +1,35 @@
 package np3.finansheet.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data//Cria os Get and Seters
+@NoArgsConstructor //Cria contrutor vazio
+@AllArgsConstructor //Cria contrutor com todos atributos
+@Entity
+@Table(name = "np3_usuario")
 public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String usuario;
-    public Usuario(){
 
-    }
+    @Column(nullable = false)
+    private String name;
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @Column(length = 10, nullable = false)
+    private String username;
 
-    public String getUsuario() {
-        return usuario;
-    }
+    @Column(nullable = false)
+    private String password;
 
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
-    }
+    @OneToMany(mappedBy = "usuario")
+    private List<Lance> lances = new ArrayList<>();
+
+
 }

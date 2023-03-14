@@ -1,110 +1,44 @@
 package np3.finansheet.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@Data//Cria os Get and Seters
+@NoArgsConstructor //Cria contrutor vazio
+@AllArgsConstructor //Cria contrutor com todos atributos
+@Entity
+@Table(name = "np3_lance")
 public class Lance {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int usuario;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
     private int tipo;
-    private int categoria;
-    private int subCategoria;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subcategoria_id")
+    private SubCategoria subcategoria;
+
     private float valor;
+
     private Date data;
+
     private boolean efetivado;
+
     private boolean recorrente;
+
     private int quantidade;
-    private String descricao;
-    public Lance(){
 
-    }
+    private String lance;
 
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(int usuario) {
-        this.usuario = usuario;
-    }
-
-    public int getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
-    }
-
-    public int getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
-    }
-
-    public int getSubCategoria() {
-        return subCategoria;
-    }
-
-    public void setSubCategoria(int subCategoria) {
-        this.subCategoria = subCategoria;
-    }
-
-    public float getValor() {
-        return valor;
-    }
-
-    public void setValor(float valor) {
-        this.valor = valor;
-    }
-
-    public Date getData() {
-        return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public boolean isEfetivado() {
-        return efetivado;
-    }
-
-    public void setEfetivado(boolean efetivado) {
-        this.efetivado = efetivado;
-    }
-
-    public boolean isRecorrente() {
-        return recorrente;
-    }
-
-    public void setRecorrente(boolean recorrente) {
-        this.recorrente = recorrente;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 }

@@ -1,36 +1,31 @@
 package np3.finansheet.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Data//Cria os Get and Seters
+@NoArgsConstructor //Cria contrutor vazio
+@AllArgsConstructor //Cria contrutor com todos atributos
+@Entity
+@Table(name = "np3_subcategoria")
 public class SubCategoria {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String subCategoria;
-    private int categoria;
-
-    public SubCategoria(){
-
-    }
+    @Column(length = 20, nullable = false)
+    private String subcategoria;
 
 
-    public int getId() {
-        return id;
-    }
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "categoria_id")
+    private Categoria categoria;
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "subcategoria")
+    private List<Lance> lances = new ArrayList<>();
 
-    public String getSubCategoria() {
-        return subCategoria;
-    }
-
-    public void setSubCategoria(String subCategoria) {
-        this.subCategoria = subCategoria;
-    }
-
-    public int getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(int categoria) {
-        this.categoria = categoria;
-    }
 }
